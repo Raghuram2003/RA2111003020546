@@ -19,7 +19,7 @@ app.get("/categories/:categoryname/products", async (req, res) => {
       config
     );
     let i=0;
-    [...response].map(element=>{
+    [...response.data].map(element=>{
         element.id = i;
         i+=1;
     })
