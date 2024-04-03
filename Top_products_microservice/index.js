@@ -10,7 +10,7 @@ const token = process.env.token;
 
 
 app.get("/categories/:categoryname/products", async (req, res) => {
-  const { top, page, company, minprice, maxprice } = req.query;
+  const { top, company, minprice, maxprice } = req.query;
   const { categoryname } = req.params;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
