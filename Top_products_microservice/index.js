@@ -7,6 +7,8 @@ const app = express();
 
 const token = process.env.token;
 
+const productId_map = {}
+
 app.get("/categories/:categoryname/products", async (req, res) => {
   const { top, company, minprice, maxprice } = req.query;
   const { categoryname } = req.params;
@@ -22,6 +24,7 @@ app.get("/categories/:categoryname/products", async (req, res) => {
     [...response.data].map(element=>{
         element.id = i;
         i+=1;
+        productId_map[element.id] = element;
     })
     res.status(200).json(response.data);
   } catch (err) {
@@ -29,5 +32,15 @@ app.get("/categories/:categoryname/products", async (req, res) => {
     res.json(err);
   }
 });
+
+app.get("/categories/:categoryname/products/:productId",(req,res)=>{
+  const {productId} = req.params
+  if(productId_map[productId]!=null){
+    res.json(productId_map[productId])
+  }
+  else{
+    res.json({"message" : "id not found"})
+  }
+})
 
 app.listen(3000);
