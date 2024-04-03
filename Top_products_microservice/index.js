@@ -7,8 +7,6 @@ const app = express();
 
 const token = process.env.token;
 
-
-
 app.get("/categories/:categoryname/products", async (req, res) => {
   const { top, company, minprice, maxprice } = req.query;
   const { categoryname } = req.params;
@@ -20,6 +18,11 @@ app.get("/categories/:categoryname/products", async (req, res) => {
       `http://20.244.56.144/test/companies/${company}/categories/${categoryname}/products?top=${top}&minPrice=${minprice}&maxPrice=${maxprice}`,
       config
     );
+    let i=0;
+    [...response].map(element=>{
+        element.id = i;
+        i+=1;
+    })
     res.status(200).json(response.data);
   } catch (err) {
     console.log(err);
@@ -27,8 +30,4 @@ app.get("/categories/:categoryname/products", async (req, res) => {
   }
 });
 
-
-
-app.listen(3000, () => {
-  console.log("server started");
-});
+app.listen(3000);
