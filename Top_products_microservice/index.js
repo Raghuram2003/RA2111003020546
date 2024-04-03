@@ -9,7 +9,7 @@ const token = process.env.token;
 
 const productId_map = {}
 
-app.get("/categories/:categoryname/products", async (req, res) => {
+app.get("/api/categories/:categoryname/products", async (req, res) => {
   const { top, company, minprice, maxprice } = req.query;
   const { categoryname } = req.params;
   const config = {
@@ -33,7 +33,7 @@ app.get("/categories/:categoryname/products", async (req, res) => {
   }
 });
 
-app.get("/categories/:categoryname/products/:productId",(req,res)=>{
+app.get("/api/categories/:categoryname/products/:productId",(req,res)=>{
   const {productId} = req.params
   if(productId_map[productId]!=null){
     res.json(productId_map[productId])
